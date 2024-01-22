@@ -1,0 +1,46 @@
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <form class="d-flex" (ngSubmit)="searchDelivery()" #deliveryForm="ngForm">
+      <input class="form-control me-2" type="search" placeholder="Delivery Id" aria-label="Search" name="deliveryId" [(ngModel)]="deliveryId">
+      <button class="btn btn-success" type="submit">Rechercher</button>
+    </form>
+
+  </div>
+</nav>
+
+<div class="container" *ngIf="delivery">
+
+  <h1 class="my-4">Track your delivery</h1>
+  <div class="row">
+
+    <div class="col-md-8">
+      <img class="img-fluid" src="https://via.placeholder.com/750x500" alt="">
+    </div>
+
+    <div class="col-md-4">
+      <h3 class="my-3">Package details</h3>
+      <ul>
+        <small>
+          <li>Description : {{ delivery.package.description }}</li>
+          <li>Dimension : width({{ delivery.package.width }}) , depth({{ delivery.package.depth }}) , weight({{ delivery.package.weight }}) , height({{ delivery.package.height }})</li>
+          <li>From : {{ delivery.package.from_name }} ({{ delivery.package.from_address }})</li>
+          <li>From Lat : {{ delivery.package.from_location.lat }} - From Lng : {{ delivery.package.from_location.lng }}</li>
+          <li>To : {{ delivery.package.to_name }} ({{ delivery.package.to_address }})</li>
+          <li>To Lat : {{ delivery.package.to_location.lat }} - From Lng : {{ delivery.package.to_location.lng }}</li>
+        </small>
+      </ul>
+      <h3 class="my-3">Delivery details</h3>
+      <ul>
+        <small>
+          <li>Status : {{ delivery.status }}</li>
+        </small>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!delivery" class="p-4">
+  No delivery found
+</div>
+

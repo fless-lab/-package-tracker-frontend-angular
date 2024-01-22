@@ -1,0 +1,50 @@
+<div class="p-4">
+  <div class="row">
+    <div [ngClass]="isAdmin ? 'col-md-9' : 'col-md-12'"  style="border-right: 1px solid #eee;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Package</th>
+            <th scope="col">Driver</th>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let delivery of deliveries">
+            <th scope="row">{{ delivery._id }}</th>
+            <td>{{ delivery.package.description }}</td>
+            <td>{{ delivery.driver.username }}</td>
+            <td>{{ delivery.package.from_name }}</td>
+            <td>{{ delivery.package.to_name }}</td>
+            <td>{{ delivery.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-3" *ngIf="isAdmin">
+      <form (ngSubmit)="onSubmit()" #deliveryForm="ngForm" name="deliveryForm">
+        <div class="form-group">
+          <label for="package_id">Package</label>
+          <select class="form-control" id="package_id" name="package_id" required
+                  [(ngModel)]="deliveryData.package">
+            <option *ngFor="let package of packages" [value]="package.package_id">{{ package.description }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="driver_id">Driver</label>
+          <select class="form-control" id="driver_id" name="driver_id" required
+                  [(ngModel)]="deliveryData.driver">
+            <option *ngFor="let driver of drivers" [value]="driver.id">{{ driver.username }}</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
